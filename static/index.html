@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .first {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+        }
+        .content1 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .second {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #answer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+            
+    </style>
+</head>
+<body>
+    <div class="first">
+        <div class="content1">
+            <h1 style="font-size: 30px;">How tall and fat-accumulative is the pokemon?</h1>
+            <p style="font-size: 15px; margin-top: auto;">We don't use freedom units here</p>
+        </div>
+    
+    </div>
+    <div class="second">
+        <div class="content2">
+            <input type="text" , id="input" placeholder="Type the Pokemon's name">
+            <button onclick="clicky()">Search</button>
+        </div>
+    </div>
+    <div id="answer">
+        <p id="ans"></p>
+        
+    </div>
+    
+</body>
+</html>
+<script>
+    function clicky() {
+        var inpu = document.getElementById("input").value.trim().toLowerCase();
+
+    
+    fetch(`https://pokeapi.co/api/v2/pokemon/${inpu} `)
+        .then(res => {
+            if (!res.ok){
+                var eelement = document.getElementById("ans")
+                eelement.textContent = "Theres no such Pokemon" 
+                console.log("diese Pokemon gibt leider nicht")
+            }
+            return res.json()
+        })
+        .then(data => {
+            var hei = data.height
+            var wei = data.weight
+            var mystring = `${inpu} is ${hei}m tall and ${wei}kg light.`
+            var element = document.getElementById("ans")
+            element.textContent = mystring 
+            console.log(data.height)
+            console.log(data.weight)
+        })
+        .catch(er => {
+            console.log("deosn't work")
+        })
+    }
+    console.log("noch funktioniere ich")
+
+</script>
